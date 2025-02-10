@@ -6,12 +6,11 @@ use Models\Usuario;
 require_once"../Lib/conexion.php";
 
 class UsuarioController{
-    private $usuario;
     private $pdo;
 
     public function __construct(){
-        $this->usuario = new Usuario();
-        $this->pdo = require_once __DIR__ . '/../Lib/conexion.php';
+        $conexion = new \Conexion;
+        $pdo = $conexion->getPdo();
     }
 
     public function cargarFormRegistro(){
@@ -23,8 +22,8 @@ class UsuarioController{
 
             // Comprobación de validez del email
             $email = filter_var(trim($_POST['email']), FILTER_VALIDATE_EMAIL);
-            $password = $_POST['password'];
-            $password2 = $_POST['password2'];
+            $password = trim($_POST['password']);
+            $password2 = trim($_POST['password2']);
 
             // Comprobación de que las contraseñas coinciden
             if($password == $password2){
@@ -33,9 +32,9 @@ class UsuarioController{
                     $stmt->bindParam(':email', $email);
                     $stmt->execute();
             
-                    // Si no existe el email en la base de datos lo añado
+                    // Si se cumple el if, significa que no existe ningún usuario con ese email
                     if ($stmt->rowCount() == 0) {
-                        $password_hash = password_hash($password, PASSWORD_BCRYPT); // Codifico la contraseña en la base de datos
+                        $password_hash = password_hash($password, PASSWORD_BCRYPT); // Se encripta la contraseña
                         $nombre = htmlspecialchars(trim($_POST['nombre']));
                         $apellidos = htmlspecialchars(trim($_POST['apellidos']));
                         $stmt = $this->pdo->prepare("INSERT INTO usuarios (nombre, apellidos, email, password) 
@@ -45,7 +44,7 @@ class UsuarioController{
                         $stmt->bindParam(':email', $email);
                         $stmt->bindParam(':password_hash', $password_hash);
                         $stmt->execute();
-                        header("Location: index.php");
+                        header("Location: ../index.php");
                         exit();
                     } else {
                         echo "El email ya existe";
@@ -57,5 +56,9 @@ class UsuarioController{
                 echo "Las contraseñas no coinciden";
             }
         }
+    }
+
+    public function login(){
+        
     }
 }

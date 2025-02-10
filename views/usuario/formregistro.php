@@ -11,7 +11,7 @@
 <!-- FORMULARIO DE REGISTRO -->
 <div class="w-full max-w-sm p-4 bg-gray-100 border border-gray-200 rounded-lg shadow-sm sm:p-6 md:p-8 mt-14">
 <h1 class="text-2xl font-semibold text-gray-900 dark:text-black text-center mt-4 mb-5">Crea tu cuenta</h1>
-<form class="max-w-md mx-auto" method="POST">
+<form class="max-w-md mx-auto" method="POST" action="../controllers/UsuarioController.php">
     
     <div class="relative z-0 w-full mb-5 group">
         <input type="email" name="email" id="email" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " required />
