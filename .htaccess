@@ -1,0 +1,8 @@
+# Activación del módulo mod_rewite
+RewriteEngine On
+
+# Redirección de peticiones al index.php
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^ index.php?_url=/$1 [QSA,L]
+
