@@ -20,8 +20,7 @@ class UsuarioController{
 
     public function guardarUsuario(){
         if(($_SERVER['REQUEST_METHOD'] == 'POST') && isset($_POST['botonRegistro'])){
-            $nombre = htmlspecialchars(trim($_POST['nombre']));
-            $apellidos = htmlspecialchars(trim($_POST['apellidos']));
+
             // Comprobación de validez del email
             $email = filter_var(trim($_POST['email']), FILTER_VALIDATE_EMAIL);
             $password = $_POST['password'];
@@ -37,16 +36,14 @@ class UsuarioController{
                     // Si no existe el email en la base de datos lo añado
                     if ($stmt->rowCount() == 0) {
                         $password_hash = password_hash($password, PASSWORD_BCRYPT); // Codifico la contraseña en la base de datos
-                        $nombre = $_POST['nombreRegistro'];
-                        $apellidos = $_POST['apellidosRegistro'];
-                        $fecha = date("Y-m-d");
-                        $stmt = $this->pdo->prepare("INSERT INTO usuarios (nombre, apellidos, email, password, fecha) 
-                                               VALUES (:nombre, :apellidos, :email, :password_hash, :fecha)");
+                        $nombre = htmlspecialchars(trim($_POST['nombre']));
+                        $apellidos = htmlspecialchars(trim($_POST['apellidos']));
+                        $stmt = $this->pdo->prepare("INSERT INTO usuarios (nombre, apellidos, email, password) 
+                                               VALUES (:nombre, :apellidos, :email, :password_hash)");
                         $stmt->bindParam(':nombre', $nombre);
                         $stmt->bindParam(':apellidos', $apellidos);
                         $stmt->bindParam(':email', $email);
                         $stmt->bindParam(':password_hash', $password_hash);
-                        $stmt->bindParam(':fecha', $fecha);
                         $stmt->execute();
                         header("Location: index.php");
                         exit();
