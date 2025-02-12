@@ -1,0 +1,1 @@
+enctype = "multipart/form-data" SE UTILIZA PARA PODER ENVIAR ARCHIVOS A TRAVÉS DE UN FORMULARIO

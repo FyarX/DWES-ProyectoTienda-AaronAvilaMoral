@@ -25,8 +25,6 @@ class UsuarioController{
             $password = trim($_POST['password']);
             $password2 = trim($_POST['password2']);
 
-            // Comprobación de que las contraseñas coinciden
-            if($password == $password2){
                 if ($email && $password) {
                     $stmt = $this->pdo->prepare("SELECT id FROM usuarios WHERE email=:email");
                     $stmt->bindParam(':email', $email);
@@ -45,16 +43,14 @@ class UsuarioController{
                         $stmt->bindParam(':password_hash', $password_hash);
                         $stmt->execute();
                         header("Location: ../index.php");
+                        $_SESSION["registro"] = "bien";
                         exit();
                     } else {
-                        echo "El email ya existe";
+                        $_SESSION["registro"] = "mal";
                     }
                 } else {
                     echo "Por favor, rellena todos los campos del formulario de registro";
                 }
-            }else{
-                echo "Las contraseñas no coinciden";
-            }
         }
     }
 
