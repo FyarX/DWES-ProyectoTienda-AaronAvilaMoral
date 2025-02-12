@@ -1,6 +1,9 @@
 <?php
 
- 
+ Namespace Lib;
+ use PDO;
+ use PDOException;
+
 // Conexion a la base de datos utilizando una clase y PDO   
 class Conexion {
     private $pdo;
