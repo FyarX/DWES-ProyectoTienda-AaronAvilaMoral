@@ -4,12 +4,13 @@ namespace Controllers;
 use Models\Usuario;
 
 require_once"../Lib/conexion.php";
+require_once"../Models/Usuario.php";
 
 class UsuarioController{
     private $pdo;
 
     public function __construct(){
-        $conexion = new \Conexion;
+        $conexion = new Conexion;
         $pdo = $conexion->getPdo();
     }
 
@@ -55,6 +56,10 @@ class UsuarioController{
     }
 
     public function login(){
-        
+        if(isset($_POST)){
+            $usuario = new Usuario();
+            $usuario->setEmail($_POST['email']);
+            $usuario->setPassword($_POST['password']);
+        }
     }
 }
