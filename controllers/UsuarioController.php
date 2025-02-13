@@ -2,15 +2,15 @@
 namespace Controllers;
 
 use Models\Usuario;
+use Lib\Conexion;
 
-require_once"../Lib/conexion.php";
 require_once"../Models/Usuario.php";
 
 class UsuarioController{
     private $pdo;
 
     public function __construct(){
-        $conexion = new Conexion;
+        $conexion = new Conexion();
         $pdo = $conexion->getPdo();
     }
 
