@@ -18,13 +18,12 @@ class UsuarioController{
         require_once __DIR__ ."../views/usuario/formregistro.php";
     }
 
-    public function guardarUsuario(){
+    public function registrarUsuario(){
         if(($_SERVER['REQUEST_METHOD'] == 'POST') && isset($_POST['botonRegistro'])){
 
             // Comprobación de validez del email
             $email = filter_var(trim($_POST['email']), FILTER_VALIDATE_EMAIL);
             $password = trim($_POST['password']);
-            $password2 = trim($_POST['password2']);
 
                 if ($email && $password) {
                     $stmt = $this->pdo->prepare("SELECT id FROM usuarios WHERE email=:email");
@@ -41,7 +40,7 @@ class UsuarioController{
                         $stmt->bindParam(':nombre', $nombre);
                         $stmt->bindParam(':apellidos', $apellidos);
                         $stmt->bindParam(':email', $email);
-                        $stmt->bindParam(':password_hash', $password_hash);
+                        $stmt->bindParam(':password', $password_hash);
                         $stmt->execute();
                         header("Location: ../index.php");
                         $_SESSION["registro"] = "bien";
@@ -50,14 +49,16 @@ class UsuarioController{
                         $_SESSION["registro"] = "mal";
                     }
                 } else {
-                    echo "Por favor, rellena todos los campos del formulario de registro";
+                    $_SESSION["registro"] = "mal";
                 }
         }
+
+        header("Location: <?php URL_BASE ?>usuario/cargarFormRegistro");
     }
 
     public function login(){
         if(isset($_POST)){
-            $usuario = new Usuario();
+            $usuario = new Usuario(null, null, $_POST['email'], $_POST['password'], null, null  );
             $usuario->setEmail($_POST['email']);
             $usuario->setPassword($_POST['password']);
         }
