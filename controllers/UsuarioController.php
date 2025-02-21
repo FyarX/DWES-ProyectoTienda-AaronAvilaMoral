@@ -1,66 +1,88 @@
 <?php
+
 namespace Controllers;
 
 use Models\Usuario;
-use Lib\Conexion;
-
-require_once"../Models/Usuario.php";
+use PDOException;
 
 class UsuarioController{
     private $pdo;
 
     public function __construct(){
-        $conexion = new Conexion();
-        $pdo = $conexion->getPdo();
+
     }
 
+    // Redirige al formulario de registro
     public function cargarFormRegistro(){
-        require_once __DIR__ ."../views/usuario/formregistro.php";
+        require_once 'views/usuario/formregistro.php';
+    }
+
+    public function cargarFormLogin(){
+        require_once 'views/usuario/formlogin.php';
     }
 
     public function registrarUsuario(){
-        if(($_SERVER['REQUEST_METHOD'] == 'POST') && isset($_POST['botonRegistro'])){
+        if(($_SERVER['REQUEST_METHOD'] == 'POST')){
 
-            // Comprobación de validez del email
-            $email = filter_var(trim($_POST['email']), FILTER_VALIDATE_EMAIL);
-            $password = trim($_POST['password']);
-
-                if ($email && $password) {
-                    $stmt = $this->pdo->prepare("SELECT id FROM usuarios WHERE email=:email");
-                    $stmt->bindParam(':email', $email);
-                    $stmt->execute();
+            $nombre = isset($_POST['nombre']) ? trim($_POST['nombre']) : false;
+            $apellidos = isset($_POST['apellidos']) ? trim($_POST['apellidos']) : false;
+            $email = isset($_POST['email']) ? trim($_POST['email']) : false;
+            $password = isset($_POST['password']) ? trim($_POST['password']) : false;
+            $rol = "usuario";
             
-                    // Si se cumple el if, significa que no existe ningún usuario con ese email
-                    if ($stmt->rowCount() == 0) {
-                        $password_hash = password_hash($password, PASSWORD_BCRYPT); // Se encripta la contraseña
-                        $nombre = htmlspecialchars(trim($_POST['nombre']));
-                        $apellidos = htmlspecialchars(trim($_POST['apellidos']));
-                        $stmt = $this->pdo->prepare("INSERT INTO usuarios (nombre, apellidos, email, password) 
-                                               VALUES (:nombre, :apellidos, :email, :password_hash)");
-                        $stmt->bindParam(':nombre', $nombre);
-                        $stmt->bindParam(':apellidos', $apellidos);
-                        $stmt->bindParam(':email', $email);
-                        $stmt->bindParam(':password', $password_hash);
-                        $stmt->execute();
-                        header("Location: ../index.php");
-                        $_SESSION["registro"] = "bien";
-                        exit();
+            if($nombre && $apellidos && $email && $password){
+                $usuario = new Usuario();
+                $usuario->setNombre($nombre);
+                $usuario->setApellidos($apellidos);
+                $usuario->setEmail($email);
+                $usuario->setPassword($password);
+                $usuario->setRol($rol);
+
+                try {
+                    if ($usuario->guardarUsuario()) {
+                        $_SESSION['registro'] = 'bien';
                     } else {
-                        $_SESSION["registro"] = "mal";
+                        $_SESSION['registro'] = 'mal';
                     }
-                } else {
-                    $_SESSION["registro"] = "mal";
+                } catch (PDOException $e) {
+                    $_SESSION['registro'] = 'mal';
+                    error_log("Error al guardar el usuario: " . $e->getMessage());
                 }
+            } else {
+                $_SESSION['registro'] = 'mal';
+            }
+        } else {
+            $_SESSION['registro'] = 'mal';
         }
 
-        header("Location: <?php URL_BASE ?>usuario/cargarFormRegistro");
+        header("Location:". URL_BASE . "usuario/cargarFormRegistro");
+        exit();
     }
+    
 
-    public function login(){
+    public function loginUsuario(){
         if(isset($_POST)){
-            $usuario = new Usuario(null, null, $_POST['email'], $_POST['password'], null, null  );
-            $usuario->setEmail($_POST['email']);
-            $usuario->setPassword($_POST['password']);
+            // Se identifica al usuario con los datos recibidos
+            $usuario = new Usuario();
+            $usuario->setEmail($_POST["email"]);
+            $usuario->setPassword($_POST["password"]);
+
+            // Comprobamos si el usuario existe
+            $log = $usuario->login();
+
+            if($log && is_object($log)){
+                $_SESSION['usuario'] = $log;
+                header('Location: ' . URL_BASE );
+
+                if($log->rol == 'admin'){
+                    $_SESSION['admin'] = true;
+                }
+            } else {
+                $_SESSION['error_login'] = 'Identificación fallida';
+                header('Location: ' . URL_BASE . 'usuario/cargarFormLogin');
+            }
         }
+
+        header('Location: ' . URL_BASE );
     }
 }

@@ -8,7 +8,7 @@
 </head>
 <body>
 
-<footer class="p-4 bg-white md:p-8 lg:p-10">
+<footer class="p-4 bg-white md:p-8 lg:p-10 w-full mt-14">
   <div class="max-w-screen-xl mx-auto text-center">
       <a href="#" class="flex items-center justify-center text-2xl font-semibold text-gray-900">
           Proyecto Tienda &#x1F3EA  

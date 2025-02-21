@@ -1,8 +1,3 @@
-<?php
-require_once"../../config/param.php";
-?>
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,21 +6,21 @@ require_once"../../config/param.php";
     <link href="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.css" rel="stylesheet" />
     <title>Registro</title>
 </head>
-<body class="flex items-center justify-center min-h-screen bg-gray-800">
+<body>
    
 <!-- FORMULARIO DE REGISTRO -->
-<div class="w-full max-w-sm p-4 bg-gray-200 border border-gray-200 rounded-lg shadow-sm sm:p-6 md:p-8 mt-14 ">
-<h1 class="mt-4 mb-5 text-2xl font-semibold text-center text-gray-900 dark:text-black">Crea tu cuenta</h1>
-<? if((isset($_SESSION['registro'])) && $_SESSION['registro']=="bien"):?>
-    <div class="p-4 mb-4 text-sm text-green-800 rounded-lg bg-green-50" role="alert">
+<div class="w-full max-w-sm p-4 bg-white border border-gray-200 rounded-lg shadow-sm sm:p-6 md:p-8 mt-14 align-center">
+<h1 class="mb-5 text-2xl font-semibold text-center text-gray-900 dark:text-black">Crea tu cuenta</h1>
+<?php if((isset($_SESSION['registro'])) && $_SESSION['registro']=="bien"):?>
+    <div class="p-4 mb-4 text-sm text-green-800 rounded-lg bg-green-100" role="alert">
         <span class="font-medium">¡Registro completado con éxito!</span>
     </div>
-<? elseif ((isset($_SESSION['registro'])) && $_SESSION['registro']=="mal"):?>
+<?php elseif ((isset($_SESSION['registro'])) && $_SESSION['registro']=="mal"):?>
     <div class="p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-100" role="alert">
         <span class="font-medium">El registro no se ha podido completar</span>
     </div>
-<? endif ?>
-<form class="max-w-md mx-auto" action="<?php echo URL_BASE ?>usuario/registrarUsuario" method="POST">
+<?php endif ?>
+<form class="max-w-md mx-auto" action="<?=URL_BASE?>usuario/registrarUsuario" method="POST">
     
     <div class="relative z-0 w-full mb-5 group">
         <input type="email" name="email" id="email" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " required />
@@ -45,16 +40,10 @@ require_once"../../config/param.php";
             <label for="floating_last_name" class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Apellidos</label>
         </div>
     </div>
-    <!-- Campo con el rol de usuario "Administrador -->
-    <?php if($_SESSION["rol"] == "administrador"){ ?>
-        <div class="relative z-0 w-full mb-5 group">
-            <input type="text" name="rol" id="rol" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " required />
-            <label for="floating_rol" class="peer-focus">
-        </div>
-    <?php } ?>
+
     <button type="submit" name="botonRegistro" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Registrar</button>
     <p class="mt-4 text-sm font-medium text-gray-500">
-      ¿Ya tienes una cuenta? <a href="http://localhost/dashboard/proyecto_final_tienda/views/usuario/formlogin.php" class="font-medium text-blue-700 hover:underline">Inicia sesión aquí</a>
+      ¿Ya tienes una cuenta? <a href="<?=URL_BASE?>usuario/cargarFormLogin" class="font-medium text-blue-700 hover:underline">Inicia sesión aquí</a>
     </p>
 </form>
 </div>

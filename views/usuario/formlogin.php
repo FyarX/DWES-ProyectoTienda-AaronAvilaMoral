@@ -6,11 +6,11 @@
     <link href="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.css" rel="stylesheet" />
     <title>Inicio de Sesión</title>
 </head>
-<body class="flex items-center justify-center min-h-screen bg-gray-800">
+<body>
 
 
 <div class="w-full max-w-sm p-4 bg-white border border-gray-200 rounded-lg shadow-sm sm:p-6 md:p-8 mt-14">
-    <form class="space-y-6" action="#">
+    <form class="space-y-6" action="<?=URL_BASE?>usuario/login" method="POST">
         <h5 class="text-xl font-medium text-gray-900">Accede a tu cuenta</h5>
         <div>
             <label for="email" class="block mb-2 text-sm font-medium text-gray-900">Tu email</label>
@@ -23,14 +23,14 @@
         <div class="flex items-start">
             <div class="flex items-start">
                 <div class="flex items-center h-5">
-                    <input id="recordar" type="checkbox" value="" class="w-4 h-4 border border-gray-300 rounded-sm bg-gray-50 focus:ring-3 focus:ring-blue-300" required />
+                    <input id="recordar" type="checkbox" value="" class="w-4 h-4 border border-gray-300 rounded-sm bg-gray-50 focus:ring-3 focus:ring-blue-300"/>
                 </div>
                 <label for="recordar" class="text-sm font-medium text-gray-900 ms-2">Recuérdame</label>
             </div>
         </div>
         <button type="submit" class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Iniciar Sesión</button>
         <div class="text-sm font-medium text-gray-500 ">
-            ¿No estás registrado? <a href="http://localhost/dashboard/proyecto_final_tienda/views/usuario/formregistro.php" class="text-blue-700 hover:underline ">Crear cuenta</a>
+            ¿No estás registrado? <a href="<?=URL_BASE?>usuario/cargarFormRegistro" class="text-blue-700 hover:underline ">Crear cuenta</a>
         </div>
     </form>
 </div>
