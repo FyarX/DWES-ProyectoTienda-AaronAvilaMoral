@@ -55,7 +55,7 @@ class UsuarioController{
             $_SESSION['registro'] = 'mal';
         }
 
-        header("Location:". URL_BASE . "usuario/cargarFormRegistro");
+        header("Location:". URL_BASE);
         exit();
     }
     
@@ -70,6 +70,7 @@ class UsuarioController{
             // Comprobamos si el usuario existe
             $log = $usuario->login();
 
+            // Si el usuario existe, se guarda en la sesión y se redirige a la página principal
             if($log && is_object($log)){
                 $_SESSION['usuario'] = $log;
                 header('Location: ' . URL_BASE );
@@ -78,11 +79,10 @@ class UsuarioController{
                     $_SESSION['admin'] = true;
                 }
             } else {
+                // Si el usuario no existe, se redirige al formulario de login con un mensaje de error
                 $_SESSION['error_login'] = 'Identificación fallida';
                 header('Location: ' . URL_BASE . 'usuario/cargarFormLogin');
             }
         }
-
-        header('Location: ' . URL_BASE );
     }
 }

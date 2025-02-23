@@ -43,7 +43,7 @@ class Usuario {
         $password = $this->password;
 
         try {
-            $stmt = $this->bbdd->getPdo()->prepare("SELECT id, password FROM usuarios WHERE email = :email");
+            $stmt = $this->bbdd->getPdo()->prepare("SELECT * FROM usuarios WHERE email = :email");
             $stmt->bindParam(':email', $email);
             $stmt->execute();
             $usuario = $stmt->fetch();
