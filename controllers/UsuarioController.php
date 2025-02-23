@@ -12,15 +12,17 @@ class UsuarioController{
 
     }
 
-    // Redirige al formulario de registro
+    //? Redirige al formulario de registro
     public function cargarFormRegistro(){
         require_once 'views/usuario/formregistro.php';
     }
 
+    //? Redirige al formulario de login
     public function cargarFormLogin(){
         require_once 'views/usuario/formlogin.php';
     }
 
+    //? Registra un usuario en la base de datos
     public function registrarUsuario(){
         if(($_SERVER['REQUEST_METHOD'] == 'POST')){
 
@@ -59,7 +61,7 @@ class UsuarioController{
         exit();
     }
     
-
+    //? Comprueba si el usuario existe en la base de datos y le asigna a la sesión
     public function loginUsuario(){
         if(isset($_POST)){
             // Se identifica al usuario con los datos recibidos
@@ -72,7 +74,7 @@ class UsuarioController{
 
             // Si el usuario existe, se guarda en la sesión y se redirige a la página principal
             if($log && is_object($log)){
-                $_SESSION['usuario'] = $log;
+                $_SESSION['log'] = $log;
                 header('Location: ' . URL_BASE );
 
                 if($log->rol == 'admin'){
@@ -84,5 +86,21 @@ class UsuarioController{
                 header('Location: ' . URL_BASE . 'usuario/cargarFormLogin');
             }
         }
+    }
+
+    //? Cierra la sesión del usuario
+    public function cerrarSesion(){
+        // Se cierra la sesión del usuario
+        if(isset($_SESSION['log'])){
+            unset($_SESSION['log']);
+        }
+
+        // Se cierra la sesión si el usuario es administrador
+        if(isset($_SESSION['admin'])){
+            unset($_SESSION['admin']);
+        }
+
+        // Se redirige a la página principal
+        header('Location: ' . URL_BASE);
     }
 }
