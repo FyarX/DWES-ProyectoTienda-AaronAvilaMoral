@@ -61,7 +61,7 @@
             <div id="dropdown" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow-sm w-52 border-black">
                 <ul class="py-2 text-sm text-gray-700" aria-labelledby="dropdownDefaultButton">
                 <li>
-                    <a href="#" class="block px-4 py-2 hover:bg-gray-100">Categorías</a>
+                    <a href="<?=URL_BASE?>categoria/default" class="block px-4 py-2 hover:bg-gray-100">Categorías</a>
                 </li>
                 <li>
                     <a href="#" class="block px-4 py-2 hover:bg-gray-100">Productos</a>

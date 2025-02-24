@@ -3,6 +3,8 @@
 Namespace Models;
 use Lib\conexion;
 
+use PDOException;
+
 class Categoria {
 
     private $id;
@@ -29,6 +31,19 @@ class Categoria {
     
     public function setNombre($nombre) {
         $this->nombre = $nombre;
+    }
+
+    //? ************* MÉTODOS DE LA CLASE *************
+    public function getCategorias(){
+        try {
+            $stmt = $this->bbdd->getPdo()->prepare("SELECT * FROM categorias");
+            $stmt->execute();
+            $categorias = $stmt->fetchAll();
+            return $categorias;
+        } catch (PDOException $e) {
+            error_log("Error al obtener las categorías: " . $e->getMessage());
+            return false;
+        }
     }
 
 }

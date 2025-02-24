@@ -88,8 +88,8 @@ class UsuarioController{
         }
     }
 
-    //? Cierra la sesión del usuario
-    public function cerrarSesion(){
+    //? Cierra la sesión del usuario (El método se llama asi ya que lo indica el documento)
+    public function logout(){
         // Se cierra la sesión del usuario
         if(isset($_SESSION['log'])){
             unset($_SESSION['log']);
