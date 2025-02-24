@@ -9,7 +9,7 @@
 <body>
    
 <!-- FORMULARIO DE REGISTRO -->
-<div class="w-full max-w-sm p-4 bg-white border border-gray-200 rounded-lg shadow-sm sm:p-6 md:p-8 mt-14 align-center">
+<div class="w-full max-w-sm p-12 bg-white border border-gray-200 rounded-lg shadow-sm sm:p-6 md:p-12 mt-14 align-center">
 <h1 class="mb-5 text-2xl font-semibold text-center text-gray-900 dark:text-black">Crea tu cuenta</h1>
 <?php if((isset($_SESSION['registro'])) && $_SESSION['registro']=="bien"):?>
     <div class="p-4 mb-4 text-sm text-green-800 rounded-lg bg-green-100" role="alert">

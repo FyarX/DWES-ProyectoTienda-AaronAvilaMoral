@@ -2,6 +2,7 @@
 
 Namespace Models;
 use Lib\conexion;
+use PDO;
 use PDOException;
 
 class Usuario {
@@ -46,10 +47,17 @@ class Usuario {
             $stmt = $this->bbdd->getPdo()->prepare("SELECT * FROM usuarios WHERE email = :email");
             $stmt->bindParam(':email', $email);
             $stmt->execute();
-            $usuario = $stmt->fetch();
+            $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
 
             if ($usuario && password_verify($password, $usuario['password'])) {
-                return $usuario; // Devuelve el usuario 
+                $usuarioLoggeado = new Usuario();
+                $usuarioLoggeado->setId($usuario['id']);
+                $usuarioLoggeado->setNombre($usuario['nombre']);
+                $usuarioLoggeado->setApellidos($usuario['apellidos']);
+                $usuarioLoggeado->setEmail($usuario['email']);
+                $usuarioLoggeado->setPassword($usuario['password']);
+                $usuarioLoggeado->setRol($usuario['rol']);
+                return $usuarioLoggeado; // Devuelve el usuario 
             } else {
                 return false;
             }

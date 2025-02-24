@@ -1,4 +1,5 @@
 <?php
+ob_start();
 // Inicio la sesión
 session_start();
 
@@ -72,3 +73,5 @@ if(class_exists($nombre_controlador)){
 
 require_once __DIR__ .'/views/layout/footer.php';
 
+ob_end_flush();
+?>

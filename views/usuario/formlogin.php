@@ -9,8 +9,8 @@
 <body>
 
 
-<div class="w-full max-w-sm p-4 bg-white border border-gray-200 rounded-lg shadow-sm sm:p-6 md:p-8 mt-14">
-    <form class="space-y-6" action="<?=URL_BASE?>usuario/login" method="POST">
+<div class="w-full max-w-sm p-8 bg-white border border-gray-200 rounded-lg shadow-sm sm:p-6 md:p-12 mt-14">
+    <form class="space-y-6" action="<?=URL_BASE?>usuario/loginUsuario" method="POST">
         <h5 class="text-xl font-medium text-gray-900">Accede a tu cuenta</h5>
         <div>
             <label for="email" class="block mb-2 text-sm font-medium text-gray-900">Tu email</label>

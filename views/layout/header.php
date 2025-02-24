@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,7 +6,7 @@
     <link href="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.css" rel="stylesheet" />
     <title>Document</title>
 </head>
-<body style="display: flex; flex-direction:column;justify-content: center; align-items: center; background-color: #1E5A64;">
+<body style="display: flex; flex-direction:column;justify-content: center; align-items: center; background-color: #D6EEFF; flex-direction: column; height: 100vh;">
     <!-- Barra de navegación -->
 
     <nav class="bg-white border-gray-200 w-full">
@@ -17,11 +16,11 @@
     </a>
     <div class="flex space-x-3 md:order-2 md:space-x-0 rtl:space-x-reverse">
         <?php if(isset($_SESSION['log'])): ?>
-            <a href="<?=URL_BASE?>usuario/cerrarSesion">
+            <a href="<?=URL_BASE?>usuario/logout">
                 <button type="button" class="px-4 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300">Cerrar Sesión</button>
             </a>
         <?php else: ?>
-
+            
         <a href="<?=URL_BASE?>usuario/cargarFormLogin">
             <button type="button" class="px-4 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300">Iniciar Sesión</button>
         </a>
@@ -40,7 +39,7 @@
     <div class="items-center justify-between hidden w-full md:flex md:w-auto md:order-1" id="navbar-cta">
         <ul class="flex flex-col p-4 mt-4 font-medium border border-gray-100 rounded-lg md:p-0 bg-gray-50 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-white">
         <li>
-            <a href="<?php URL_BASE ?>index.php" class="block px-3 py-2 text-white bg-blue-700 rounded-sm md:p-0 md:bg-transparent md:text-blue-700" aria-current="page">Inicio</a>
+            <a href="<?php URL_BASE ?>index" class="block px-3 py-2 text-white bg-blue-700 rounded-sm md:p-0 md:bg-transparent md:text-blue-700" aria-current="page">Inicio</a>
         </li>
         <!-- FALTA IMPLEMENTAR CATEGORÍAS DINÁMICAS -->
         <li>
@@ -52,7 +51,7 @@
         <li>
             <a href="#" class="block px-3 py-2 text-gray-900 rounded-sm md:p-0 hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700">Contacto</a>
         </li>
-        <?php if(isset($_SESSION['log']) && $_SESSION['admin']){ ?>
+        <?php if(isset($_SESSION['log']) && isset($_SESSION['admin']) && $_SESSION['admin'] === true): ?>
         <li>            
             <button id="dropdownDefaultButton" data-dropdown-toggle="dropdown" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-2.5 py-1.5 text-center inline-flex items-center" type="button">Gestión de Administrador <svg class="w-2.5 h-2.5 ms-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
@@ -63,7 +62,7 @@
             <div id="dropdown" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow-sm w-52 border-black">
                 <ul class="py-2 text-sm text-gray-700" aria-labelledby="dropdownDefaultButton">
                 <li>
-                    <a href="<?=URL_BASE?>categoria/default" class="block px-4 py-2 hover:bg-gray-100">Categorías</a>
+                    <a href="<?= URL_BASE ?>categoria/default" class="block px-4 py-2 hover:bg-gray-100">Categorías</a>
                 </li>
                 <li>
                     <a href="#" class="block px-4 py-2 hover:bg-gray-100">Productos</a>
@@ -74,11 +73,13 @@
                 </ul>
             </div>
         </li>
-        <?php } ?>
+        <?php endif; ?>
         </ul>
     </div>
     </div>
     </nav>
+
+    <main class="flex-1">
 
 
     <script src="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.js"></script>
