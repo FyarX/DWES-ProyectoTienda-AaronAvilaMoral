@@ -21,6 +21,7 @@
                 <button type="button" class="px-4 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300">Cerrar Sesión</button>
             </a>
         <?php else: ?>
+
         <a href="<?=URL_BASE?>usuario/cargarFormLogin">
             <button type="button" class="px-4 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300">Iniciar Sesión</button>
         </a>
@@ -51,6 +52,7 @@
         <li>
             <a href="#" class="block px-3 py-2 text-gray-900 rounded-sm md:p-0 hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700">Contacto</a>
         </li>
+        <?php if(isset($_SESSION['log']) && $_SESSION['admin']){ ?>
         <li>            
             <button id="dropdownDefaultButton" data-dropdown-toggle="dropdown" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-2.5 py-1.5 text-center inline-flex items-center" type="button">Gestión de Administrador <svg class="w-2.5 h-2.5 ms-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
@@ -72,6 +74,7 @@
                 </ul>
             </div>
         </li>
+        <?php } ?>
         </ul>
     </div>
     </div>

@@ -49,7 +49,7 @@ class Usuario {
             $usuario = $stmt->fetch();
 
             if ($usuario && password_verify($password, $usuario['password'])) {
-                return true;
+                return $usuario; // Devuelve el usuario 
             } else {
                 return false;
             }
