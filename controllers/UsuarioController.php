@@ -10,6 +10,7 @@ class UsuarioController{
 
     public function __construct(){
 
+        
     }
 
     //? Redirige al formulario de registro
@@ -74,7 +75,6 @@ class UsuarioController{
 
             // Si el usuario existe, se guarda en la sesión y se redirige a la página principal
             if($log){
-                echo "Usuario logeado";
                 $_SESSION['log'] = [
                     'id' => $log->getId(),
                     'nombre' => $log->getNombre(),
@@ -85,6 +85,12 @@ class UsuarioController{
 
                 if($log->getRol() == 'admin'){
                     $_SESSION['admin'] = true;
+                }
+
+                // Verificar si el checkbox "Recuérdame" está marcado
+                if(isset($_POST['recordar'])){
+                    // Crear una cookie que expire en 7 días
+                    setcookie('recuerdame', $log->getId(), time() + (7 * 24 * 60 * 60), "/");
                 }
 
                 header('Location: ' . URL_BASE);
@@ -109,8 +115,13 @@ class UsuarioController{
             unset($_SESSION['admin']);
         }
         
+        // Eliminar la cookie si existía
+        setcookie("recuerdame", "", time() - 3600, "/");
+
         // Se redirige a la página principal
         header('Location: ' . URL_BASE);
         exit();
     }
+
+
 }

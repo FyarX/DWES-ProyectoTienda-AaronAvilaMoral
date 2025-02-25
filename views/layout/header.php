@@ -1,3 +1,4 @@
+<!-- filepath: /c:/xampp/htdocs/dashboard/proyecto_final_tienda/views/layout/header.php -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,13 +9,17 @@
 </head>
 <body style="display: flex; flex-direction:column;justify-content: center; align-items: center; background-color: #D6EEFF; flex-direction: column; height: 100vh;">
     <!-- Barra de navegación -->
-
+    <?php
+    if(!isset($_SESSION['log']) && isset($_COOKIE['recuerdame'])){
+        $_SESSION['log'] = $_COOKIE['recuerdame'];  
+    }
+    ?>
     <nav class="bg-white border-gray-200 w-full">
     <div class="flex flex-wrap items-center justify-between max-w-screen-xl p-4 mx-auto">
     <a class="flex items-center space-x-3 rtl:space-x-reverse">
         <a href="<?=URL_BASE?>"><img src="<?=URL_BASE?>assets/img/logoAS.png" alt="Logo AlphaSupps" class="h-16 md:h-12 w-auto"></a>
     </a>
-    <div class="flex space-x-3 md:order-2 md:space-x-0 rtl:space-x-reverse">
+    <div class="flex items-center space-x-4 md:order-2">
         <?php if(isset($_SESSION['log'])): ?>
             <a href="<?=URL_BASE?>usuario/logout">
                 <button type="button" class="px-4 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300">Cerrar Sesión</button>
@@ -39,7 +44,7 @@
     <div class="items-center justify-between hidden w-full md:flex md:w-auto md:order-1" id="navbar-cta">
         <ul class="flex flex-col p-4 mt-4 font-medium border border-gray-100 rounded-lg md:p-0 bg-gray-50 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-white">
         <li>
-            <a href="<?php URL_BASE ?>index" class="block px-3 py-2 text-white bg-blue-700 rounded-sm md:p-0 md:bg-transparent md:text-blue-700" aria-current="page">Inicio</a>
+            <a href="<?= URL_BASE ?>index" class="block px-3 py-2 text-white bg-blue-700 rounded-sm md:p-0 md:bg-transparent md:text-blue-700" aria-current="page">Inicio</a>
         </li>
         <!-- FALTA IMPLEMENTAR CATEGORÍAS DINÁMICAS -->
         <li>
@@ -60,7 +65,7 @@
             <div id="dropdownNavbar" class="z-10 hidden font-normal bg-white divide-y divide-gray-100 rounded-lg shadow-sm w-44">
                 <ul class="py-2 text-sm text-gray-700" aria-labelledby="dropdownLargeButton">
                   <li>
-                    <a href="<?php URL_BASE ?>categorias/default" class="block px-4 py-2 hover:bg-gray-100">Usuarios</a>
+                    <a href="<?= URL_BASE ?>categorias/default" class="block px-4 py-2 hover:bg-gray-100">Usuarios</a>
                   </li>
                   <li>
                     <a href="#" class="block px-4 py-2 hover:bg-gray-100">Categorías</a>
@@ -75,6 +80,12 @@
             </div>
         </li>
         <?php endif; ?>
+        <?php if(isset($_SESSION['log'])): ?>
+        <li>
+            <!-- Mostrar nombre y apellidos del usuario logeado -->
+            <p class="font-bold text-gray-900 text-center mr-4">Bienvenido, <?= $_SESSION['log']['nombre'] . " " . $_SESSION['log']['apellidos'] ?></p>
+        </li>
+        <?php endif; ?>
         </ul>
     </div>
     </div>
@@ -86,4 +97,3 @@
     <script src="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.js"></script>
 </body>
 </html>
-
