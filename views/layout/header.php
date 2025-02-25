@@ -12,7 +12,7 @@
     <nav class="bg-white border-gray-200 w-full">
     <div class="flex flex-wrap items-center justify-between max-w-screen-xl p-4 mx-auto">
     <a class="flex items-center space-x-3 rtl:space-x-reverse">
-        <span class="self-center text-2xl font-semibold whitespace-nowrap">Tienda &#x1F3EA;</span>
+        <a href="<?=URL_BASE?>"><img src="<?=URL_BASE?>assets/img/logoAS.png" alt="Logo AlphaSupps" class="h-16 md:h-12 w-auto"></a>
     </a>
     <div class="flex space-x-3 md:order-2 md:space-x-0 rtl:space-x-reverse">
         <?php if(isset($_SESSION['log'])): ?>
@@ -52,24 +52,25 @@
             <a href="#" class="block px-3 py-2 text-gray-900 rounded-sm md:p-0 hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700">Contacto</a>
         </li>
         <?php if(isset($_SESSION['log']) && isset($_SESSION['admin']) && $_SESSION['admin'] === true): ?>
-        <li>            
-            <button id="dropdownDefaultButton" data-dropdown-toggle="dropdown" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-2.5 py-1.5 text-center inline-flex items-center" type="button">Gestión de Administrador <svg class="w-2.5 h-2.5 ms-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+        <li>
+            <button id="dropdownNavbarLink" data-dropdown-toggle="dropdownNavbar" class="flex items-center justify-between w-full py-2 px-3 text-gray-700 rounded-sm hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 md:w-auto">Gestión de Administrador <svg class="w-2.5 h-2.5 ms-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
-            </svg>
-            </button>
-
+            </svg></button>
             <!-- Dropdown menu -->
-            <div id="dropdown" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow-sm w-52 border-black">
-                <ul class="py-2 text-sm text-gray-700" aria-labelledby="dropdownDefaultButton">
-                <li>
-                    <a href="<?= URL_BASE ?>categoria/default" class="block px-4 py-2 hover:bg-gray-100">Categorías</a>
-                </li>
-                <li>
+            <div id="dropdownNavbar" class="z-10 hidden font-normal bg-white divide-y divide-gray-100 rounded-lg shadow-sm w-44">
+                <ul class="py-2 text-sm text-gray-700" aria-labelledby="dropdownLargeButton">
+                  <li>
+                    <a href="<?php URL_BASE ?>categorias/default" class="block px-4 py-2 hover:bg-gray-100">Usuarios</a>
+                  </li>
+                  <li>
+                    <a href="#" class="block px-4 py-2 hover:bg-gray-100">Categorías</a>
+                  </li>
+                  <li>
                     <a href="#" class="block px-4 py-2 hover:bg-gray-100">Productos</a>
-                </li>
-                <li>
+                  </li>
+                  <li>
                     <a href="#" class="block px-4 py-2 hover:bg-gray-100">Pedidos</a>
-                </li>
+                  </li>
                 </ul>
             </div>
         </li>
@@ -85,3 +86,4 @@
     <script src="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.js"></script>
 </body>
 </html>
+

@@ -11,13 +11,12 @@
 
 </main>
 
-<footer class="p-4 bg-white md:p-8 lg:p-10 w-full mt-14">
+<footer class="p-4 bg-white md:p-8 lg:p-10 w-full mt-10">
   <div class="max-w-screen-xl mx-auto text-center">
-      <a href="#" class="flex items-center justify-center text-2xl font-semibold text-gray-900">
-          Proyecto Tienda &#x1F3EA  
-      </a>
-      <p class="my-6 text-gray-500">Esto es el proyecto final de la asignatura de DWES</p>
-      <span class="text-sm text-gray-500 sm:text-center">© 2025 <a href="#" class="hover:underline">Aarón Ávila Moral</a>. Todos los derechos reservados.</span>
+    <a href="<?=URL_BASE?>" class="flex justify-center">
+        <img src="<?=URL_BASE?>assets/img/logoAS.png" alt="Logo AlphaSupps" class="h-16 md:h-12 w-auto">
+    </a>
+    <span class="text-sm text-gray-500 sm:text-center">© 2025 <a href="#" class="hover:underline">Aarón Ávila Moral</a>. Todos los derechos reservados.</span>
   </div>
 </footer>
 
