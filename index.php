@@ -7,6 +7,7 @@ require_once "config/param.php";
 require_once "autoload.php";
 
 use Controllers\ErrorController;
+use Utils\Utils;
 
 // Incluyo la cabecera de la página
 require_once __DIR__ . '/views/layout/header.php';

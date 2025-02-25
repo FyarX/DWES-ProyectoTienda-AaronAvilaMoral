@@ -4,6 +4,7 @@ Namespace Models;
 use Lib\conexion;
 
 use PDOException;
+use Utils\Utils;
 
 class Categoria {
 
@@ -30,7 +31,8 @@ class Categoria {
     }
     
     public function setNombre($nombre) {
-        $this->nombre = $nombre;
+         // Formatear el nombre para que la primera letra sea mayúscula y el resto minúscula
+         $this->nombre = ucwords(strtolower($nombre));
     }
 
     //? ************* MÉTODOS DE LA CLASE *************
@@ -45,5 +47,23 @@ class Categoria {
             return false;
         }
     }
+
+    public function guardarCategoria(){
+        // Validar el nombre de la categoría
+        if (preg_match('/^[a-zA-Z\s]{3,}$/', $this->nombre)) {
+            try {
+                $stmt = $this->bbdd->getPdo()->prepare("INSERT INTO categorias (nombre) VALUES (:nombre)");
+                $stmt->bindParam(':nombre', $this->nombre);
+                return $stmt->execute();
+            } catch (PDOException $e) {
+                error_log("Error al guardar la categoría: " . $e->getMessage());
+                return false;
+            }
+        } else {
+            error_log("Error: El nombre de la categoría no es válido.");
+            return false;
+        }
+    }
+    
 
 }
