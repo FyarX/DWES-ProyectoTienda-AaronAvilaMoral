@@ -48,7 +48,7 @@ class Categoria {
         }
     }
 
-    public function guardarCategoria(){
+    public function guardar(){
         // Validar el nombre de la categoría
         if (preg_match('/^[a-zA-Z\s]{3,}$/', $this->nombre)) {
             try {
@@ -60,7 +60,7 @@ class Categoria {
                 return false;
             }
         } else {
-            error_log("Error: El nombre de la categoría no es válido.");
+            $_SESSION['errorCategoria'] = 'true';
             return false;
         }
     }

@@ -1,4 +1,8 @@
-<!-- filepath: /c:/xampp/htdocs/dashboard/proyecto_final_tienda/views/layout/header.php -->
+<?php
+$categoria = new Models\Categoria();
+$categorias = $categoria->getCategorias();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -47,12 +51,11 @@
             <a href="<?= URL_BASE ?>index" class="block px-3 py-2 text-white bg-blue-700 rounded-sm md:p-0 md:bg-transparent md:text-blue-700" aria-current="page">Inicio</a>
         </li>
         <!-- FALTA IMPLEMENTAR CATEGORÍAS DINÁMICAS -->
+        <?php foreach($categorias as $categoria): ?>
         <li>
-            <a href="#" class="block px-3 py-2 text-gray-900 rounded-sm md:p-0 hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700">About</a>
+            <a href="#" class="block px-3 py-2 text-gray-900 rounded-sm md:p-0 hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700"><?php echo $categoria["nombre"]?></a>
         </li>
-        <li>
-            <a href="#" class="block px-3 py-2 text-gray-900 rounded-sm md:p-0 hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700">Services</a>
-        </li>
+        <?php endforeach; ?>
         <li>
             <a href="#" class="block px-3 py-2 text-gray-900 rounded-sm md:p-0 hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700">Contacto</a>
         </li>
