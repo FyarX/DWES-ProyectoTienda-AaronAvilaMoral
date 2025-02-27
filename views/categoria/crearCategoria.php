@@ -2,6 +2,16 @@
 <section class="bg-white mt-10">
   <div class="py-12 px-4 mx-auto max-w-4xl lg:py-20 lg:px-8">
       <h2 class="mb-6 text-2xl font-bold text-gray-900">Añade una nueva categoría</h2>
+      <!-- Manejo error al escribir la categoría -->
+    <?php if (isset($_SESSION['errorCategoria']) && $_SESSION['errorCategoria'] == 'true') { ?>
+    <div class="flex justify-center mt-4">
+        <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+            <strong class="font-bold">Error:</strong>
+            <span class="block sm:inline">El nombre de la categoría no es válido.</span>
+        </div>
+    </div>
+    <?php unset($_SESSION['errorCategoria']); ?>
+    <?php } ?>
       <form action="<?= URL_BASE ?>categoria/guardarCategoria" method="POST" class="mt-10 px-8"> <!-- Añadido padding horizontal al formulario -->
               <div class="sm:col-span-1">
                   <label for="nombre" class="block mb-4 text-lg font-medium text-gray-900">Nombre de la Categoría</label>

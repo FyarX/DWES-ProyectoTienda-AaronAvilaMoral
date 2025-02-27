@@ -50,7 +50,7 @@ class Categoria {
 
     public function guardar(){
         // Validar el nombre de la categoría
-        if (preg_match('/^[a-zA-Z\s]{3,}$/', $this->nombre)) {
+        if (preg_match('/^[a-zA-ZáéíóúÁÉÍÓÚ\s]{3,}$/', $this->nombre)) {
             try {
                 $stmt = $this->bbdd->getPdo()->prepare("INSERT INTO categorias (nombre) VALUES (:nombre)");
                 $stmt->bindParam(':nombre', $this->nombre);

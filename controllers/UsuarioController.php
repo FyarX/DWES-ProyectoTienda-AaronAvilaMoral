@@ -90,7 +90,7 @@ class UsuarioController{
                 // Verificar si el checkbox "Recuérdame" está marcado
                 if(isset($_POST['recordar'])){
                     // Crear una cookie que expire en 7 días
-                    setcookie('recuerdame', $log->getId(), time() + (7 * 24 * 60 * 60), "/");
+                    setcookie('recuerdame', $log->getNombre(), time() + (7 * 24 * 60 * 60), "/");
                 }
 
                 header('Location: ' . URL_BASE);

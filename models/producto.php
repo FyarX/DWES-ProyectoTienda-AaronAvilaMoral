@@ -3,7 +3,9 @@
 Namespace Models;
 use Lib\conexion;
 
-class Categoria {
+use PDOException;
+
+class Producto {
 
     private $id;
     private $categoria_id;
@@ -92,5 +94,22 @@ class Categoria {
 
     public function setImagen($imagen) {
         $this->imagen = $imagen;
+    }
+
+    //? ************* METODOS DE LA CLASE *************
+    public function getProductos() {
+        try {
+            $stmt = $this->bbdd->getPdo()->prepare("SELECT * FROM productos ORDER BY id DESC");
+            $stmt->execute();
+            $productos = $stmt->fetchAll();
+            return $productos;
+        } catch (PDOException $e) {
+            error_log("Error al obtener los productos: " . $e->getMessage());
+            return false;
+        }
+    }
+
+    public function guardar(){
+        
     }
 }

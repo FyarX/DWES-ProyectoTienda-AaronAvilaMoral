@@ -1,1 +1,0 @@
-Diosito que acabe este proyecto algún día 
