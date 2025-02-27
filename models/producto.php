@@ -3,6 +3,7 @@
 Namespace Models;
 use Lib\conexion;
 
+use PDO;
 use PDOException;
 
 class Producto {
@@ -110,6 +111,39 @@ class Producto {
     }
 
     public function guardar(){
-        
+        if(preg_match('/^[a-zA-ZáéíóúÁÉÍÓÚ\s]{3,}$/', $this->nombre) &&
+       preg_match('/^[a-zA-ZáéíóúÁÉÍÓÚ\s]{3,}$/', $this->descripcion) &&
+       preg_match('/^\d+(\.\d{1,2})?$/', $this->precio) && // Permite valores decimales
+       preg_match('/^[0-9]+$/', $this->stock)){
+            try {
+                $stmt = $this->bbdd->getPdo()->prepare("INSERT INTO productos (categoria_id, nombre, descripcion, precio, stock, oferta, fecha, imagen) VALUES (:categoria_id, :nombre, :descripcion, :precio, :stock, null, CURDATE(), :imagen)");
+                $stmt->bindParam(':categoria_id', $this->categoria_id);
+                $stmt->bindParam(':nombre', $this->nombre);
+                $stmt->bindParam(':descripcion', $this->descripcion);
+                $stmt->bindParam(':precio', $this->precio);
+                $stmt->bindParam(':stock', $this->stock);
+                $stmt->bindParam(':imagen', $this->imagen);
+                return $stmt->execute();
+            } catch (PDOException $e) {
+                error_log("Error al guardar el producto: " . $e->getMessage());
+                return false;
+            }
+        } else {
+            $_SESSION['errorProducto'] = 'true';
+            return false;
+        }
+    }
+
+    public function getProductosAleatorios($numProductos){
+        try {
+            $stmt = $this->bbdd->getPdo()->prepare("SELECT * FROM productos ORDER BY RAND() LIMIT :numProductos");
+            $stmt->bindParam(':numProductos', $numProductos, PDO::PARAM_INT);
+            $stmt->execute();
+            $productos = $stmt->fetchAll(PDO::FETCH_OBJ);
+            return $productos;
+        } catch (PDOException $e) {
+            error_log("Error al obtener los productos aleatorios: " . $e->getMessage());
+            return false;
+        }
     }
 }
