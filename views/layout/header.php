@@ -10,8 +10,21 @@ $categorias = $categoria->getCategorias();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.css" rel="stylesheet" />
     <title>Document</title>
+    <style>
+        /* Header esté fijo en la parte superior */
+        nav {
+            width: 100%;
+            z-index: 1000; 
+        }
+        /* Agrega un margen superior al main para que no se superponga con el header */
+        main {
+            max-width: 1200px; /* Ajusta este valor según el ancho deseado */
+            margin: 20px auto; /* Centra el main y agrega un margen superior */
+            padding: 20px; /* Agrega padding para un mejor diseño */
+        }
+    </style>
 </head>
-<body style="display: flex; flex-direction:column;justify-content: center; align-items: center; background-color: #D6EEFF; flex-direction: column; height: 100vh;">
+<body style="display: flex; flex-direction: column; min-height: 100vh; background-color: #D6EEFF;">
     <!-- Barra de navegación -->
     <?php
     if(!isset($_SESSION['log']) && isset($_COOKIE['recuerdame'])){
@@ -53,13 +66,13 @@ $categorias = $categoria->getCategorias();
                     </li>
                 <?php endif; ?>
                     <li>
-                        <a href="<?= URL_BASE ?>index" class="block px-3 py-2 text-white bg-blue-700 rounded-sm md:p-0 md:bg-transparent md:text-blue-700" aria-current="page">Inicio</a>
+                        <a href="<?=URL_BASE?>" class="block px-3 py-2 text-white bg-blue-700 rounded-sm md:p-0 md:bg-transparent md:text-blue-700" aria-current="page">Inicio</a>
                     </li>
                     <!-------------------  CATEGORÍAS DINÁMICAS --------------------->
                     <?php if (is_array($categorias) && count($categorias) > 0): ?>
                         <?php foreach($categorias as $categoria): ?>
                             <li>
-                                <a href="#" class="block px-3 py-2 text-gray-900 rounded-sm md:p-0 hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700"><?php echo $categoria["nombre"]?></a>
+                                <a href="<?= URL_BASE ?>categoria/verCategoria&id=<?php echo $categoria['id'] ?>" class="block px-3 py-2 text-gray-900 rounded-sm md:p-0 hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700"><?php echo $categoria["nombre"]?></a>
                             </li>
                         <?php endforeach; ?>
                     <?php endif; ?>

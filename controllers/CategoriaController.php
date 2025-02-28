@@ -4,6 +4,7 @@ namespace Controllers;
 // Llamada al modelo Categoría para interactuar con la base de datos
 use Models\Categoria;
 use Helpers\Utils;
+use Models\Producto;
 
 class CategoriaController{
 
@@ -36,5 +37,21 @@ class CategoriaController{
             }
         }
         
+    }
+
+    public function verCategoria(){
+
+        if(isset($_GET['id'])){
+            $id = $_GET['id'];
+            $categoria = new Categoria();
+            $categoria->setId($_GET['id']);
+            $categoria = $categoria->getCategoria();
+
+            $producto = new Producto();
+            $producto->setCategoriaId($id);
+            $productos = $producto->getProductosCategoria();
+        }   
+
+        require_once 'views/categoria/verCategoria.php';
     }
 }

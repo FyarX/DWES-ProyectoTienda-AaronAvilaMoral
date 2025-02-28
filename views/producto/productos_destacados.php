@@ -1,12 +1,12 @@
-<div class="flex justify-center mt-8">
+<div class="flex justify-center">
     <h1 class="text-3xl font-bold text-gray-900">Productos Destacados</h1>
 </div>
-<div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 mt-6">
+<div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 mt-8">
     <?php if ($productos): ?>
         <?php foreach ($productos as $producto): ?>
             <div class="w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700">
                 <a href="#">
-                    <img class="p-4 w-80 rounded-t-lg" src="<?= URL_BASE ?>assets/img/<?= $producto->imagen ?>" alt="product image" />
+                    <img class="p-4 w-80 h-80 rounded-t-lg" src="<?= URL_BASE ?>assets/img/<?= $producto->imagen ?>" alt="product image" />
                 </a>
                 <div class="px-5 pb-5">
                     <a href="#">

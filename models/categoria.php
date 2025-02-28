@@ -48,6 +48,20 @@ class Categoria {
         }
     }
 
+    public function getCategoria(){
+        try {
+            $stmt = $this->bbdd->getPdo()->prepare("SELECT * FROM categorias WHERE id = :id");
+            $stmt->bindParam(':id', $this->id);
+            $stmt->execute();
+            $categoria = $stmt->fetch();
+            return $categoria;
+        } catch (PDOException $e) {
+            error_log("Error al obtener la categoría: " . $e->getMessage());
+            return false;
+        }
+    }
+
+        
     public function guardar(){
         // Validar el nombre de la categoría
         if (preg_match('/^[a-zA-ZáéíóúÁÉÍÓÚ\s]{3,}$/', $this->nombre)) {

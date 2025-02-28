@@ -1,5 +1,5 @@
 
-<div class="flex justify-center mt-8">
+<div class="flex justify-center">
     <h1 class="text-3xl font-bold text-gray-900">Creación de Productos</h1>
 </div>
 

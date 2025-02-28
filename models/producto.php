@@ -28,7 +28,7 @@ class Producto {
         return $this->id;
     }
     
-    public function getCategiaId() {
+    public function getCategoriaId() {
         return $this->categoria_id;
     }
 
@@ -143,6 +143,24 @@ class Producto {
             return $productos;
         } catch (PDOException $e) {
             error_log("Error al obtener los productos aleatorios: " . $e->getMessage());
+            return false;
+        }
+    }
+
+    public function getProductosCategoria(){
+        try {
+            $sql = "SELECT p.*, c.nombre AS 'catnombre' FROM productos p "
+                . "INNER JOIN categorias c ON c.id = p.categoria_id "
+                . "WHERE c.id = {$this->getCategoriaId()} "
+                . " ORDER BY id DESC;";
+            
+            $stmt = $this->bbdd->getPdo()->prepare($sql);
+            $stmt->execute();
+            $productos = $stmt->fetchAll();
+            return $productos;
+
+        } catch (PDOException $e) {
+            error_log("Error al obtener los productos de la categoría: " . $e->getMessage());
             return false;
         }
     }
