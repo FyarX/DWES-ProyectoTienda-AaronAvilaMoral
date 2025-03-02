@@ -23,6 +23,23 @@ class UsuarioController{
         require_once 'views/usuario/formlogin.php';
     }
 
+    //? Redirige al formulario de edición de usuario
+    public function cargarGestionUsuarios(){
+        $usuario = new Usuario();
+        $usuarios = $usuario->listarUsuarios();
+
+        require_once 'views/usuario/gestionUsuarios.php';
+    }
+
+    //? Redirige al formulario de edición de usuario
+    public function formEditarUsuario(){
+        $usuario = new Usuario();
+        $usuario->setId($_GET['id']);
+        $usuario = $usuario->getUsuario();
+
+        require_once 'views/usuario/formEditarUsuario.php';
+    }
+
     //? Registra un usuario en la base de datos
     public function registrarUsuario(){
         if(($_SERVER['REQUEST_METHOD'] == 'POST')){

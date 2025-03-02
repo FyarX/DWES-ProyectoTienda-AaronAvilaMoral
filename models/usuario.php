@@ -67,6 +67,29 @@ class Usuario {
         }
     }
 
+    public function getUsuario(){
+        try {
+            $stmt = $this->bbdd->getPdo()->prepare("SELECT * FROM usuarios WHERE id = :id");
+            $stmt->bindParam(':id', $this->id);
+            $stmt->execute();
+            return $stmt->fetch(PDO::FETCH_ASSOC);
+        } catch (PDOException $e) {
+            error_log("Error al obtener el usuario: " . $e->getMessage());
+            return false;
+        }
+    }
+
+    public function listarUsuarios(){
+        try {
+            $stmt = $this->bbdd->getPdo()->prepare("SELECT * FROM usuarios");
+            $stmt->execute();
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        } catch (PDOException $e) {
+            error_log("Error al obtener los usuarios: " . $e->getMessage());
+            return false;
+        }
+    }
+
     //? ************* GETTERS DE LA CLASE *************
     public function getId() {
         return $this->id;

@@ -88,16 +88,13 @@ $categorias = $categoria->getCategorias();
                         <div id="dropdownNavbar" class="z-10 hidden font-normal bg-white divide-y divide-gray-100 rounded-lg shadow-sm w-44">
                             <ul class="py-2 text-sm text-gray-700" aria-labelledby="dropdownLargeButton">
                               <li>
-                                <a href="#" class="block px-4 py-2 hover:bg-gray-100">Usuarios</a>
+                                <a href="<?= URL_BASE ?>usuario/cargarGestionUsuarios" class="block px-4 py-2 hover:bg-gray-100">Usuarios</a>
                               </li>
                               <li>
                                 <a href="<?= URL_BASE ?>categoria/default" class="block px-4 py-2 hover:bg-gray-100">Categorías</a>
                               </li>
                               <li>
                                 <a href="<?= URL_BASE ?>producto/gestion" class="block px-4 py-2 hover:bg-gray-100">Productos</a>
-                              </li>
-                              <li>
-                                <a href="#" class="block px-4 py-2 hover:bg-gray-100">Pedidos</a>
                               </li>
                             </ul>
                         </div>
